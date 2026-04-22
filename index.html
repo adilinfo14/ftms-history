@@ -153,6 +153,21 @@
                 width: 44px;
                 height: 44px;
             }
+
+            /* Responsive pour les images de certification */
+            .slide > div[style*='display:flex'][style*='gap'] {
+                flex-wrap: wrap !important;
+                gap: 10px !important;
+                max-width: 99vw;
+                justify-content: center !important;
+            }
+            .slide > div[style*='display:flex'][style*='gap'] img {
+                height: 48px !important;
+                max-width: 90vw !important;
+                min-width: 60px !important;
+                padding: 4px 4px !important;
+                box-sizing: border-box;
+            }
         }
     </style>
 </head>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code FTMS CONCEPT</title>
+  <style>
+    body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: #f7f7f7; font-family: Montserrat, Arial, sans-serif; }
+    .qr-container { background: #fff; border-radius: 18px; box-shadow: 0 4px 24px #0001; padding: 2.5rem 2rem; display: flex; flex-direction: column; align-items: center; }
+    .qr-title { font-size: 1.3rem; font-weight: bold; color: #2a4d7a; margin-bottom: 1.2rem; }
+    .qr-url { font-size: 1rem; color: #333; margin-top: 1.2rem; word-break: break-all; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="qr-container">
+    <div class="qr-title">Scannez pour accéder au site FTMS CONCEPT</div>
+    <canvas id="qr-canvas"></canvas>
+    <div class="qr-url">https://www.ftms-concept.noschoixpourvous.com/</div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script>
+    new QRious({
+      element: document.getElementById('qr-canvas'),
+      value: 'https://www.ftms-concept.noschoixpourvous.com/',
+      size: 220
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTMS CONCEPT - Avant/Après</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: #f7f7f7;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+            text-align: center;
+            margin-top: 2rem;
+            min-height: 520px;
+            max-width: 700px;
+            min-width: 320px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide-logo-mini {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+            opacity: 0.85;
+            z-index: 2;
+        }
+
+        .media {
+            max-width: 100%;
+            max-height: 340px;
+            border-radius: 12px;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+            background: #f2f2f2;
+            object-fit: contain;
+        }
+
+        .dirigeant-mini {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0.7rem;
+            border: 2px solid #2a4d7a22;
+            box-shadow: 0 2px 8px #2a4d7a11;
+        }
+
+        .certifs {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .certif-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 6px;
+            background: #f7f7f7;
+            box-shadow: 0 1px 4px #0001;
+            padding: 2px 6px;
+        }
+
+        .footer-contact {
+            font-size: 0.72rem;
+            color: #2a4d7a;
+            margin-top: 2.2rem;
+            margin-bottom: 0.1rem;
+            text-align: center;
+            line-height: 1.4;
+            opacity: 0.7;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            color: #888;
+            text-align: center;
+        }
+
+        .nav-btn {
+            background: #2a4d7a;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.7rem;
+            cursor: pointer;
+            margin: 0 1rem;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:active {
+            background: #18304d;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                max-width: 99vw;
+            }
+
+            .slide {
+                padding: 0.7rem 0.1rem;
+                max-width: 99vw;
+            }
+
+            .media {
+                max-height: 160px;
+            }
+
+            .slide-logo-mini {
+                width: 36px;
+                height: 36px;
+                top: 8px;
+                right: 8px;
+            }
+
+            .dirigeant-mini {
+                width: 44px;
+                height: 44px;
+            }
+
+            /* Responsive pour les images de certification */
+            .slide > div[style*='display:flex'][style*='gap'] {
+                flex-wrap: wrap !important;
+                gap: 10px !important;
+                max-width: 99vw;
+                justify-content: center !important;
+            }
+            .slide > div[style*='display:flex'][style*='gap'] img {
+                height: 48px !important;
+                max-width: 90vw !important;
+                min-width: 60px !important;
+                padding: 4px 4px !important;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="slides-container"></div>
+        <div style="margin-top:1.5rem; text-align:center;">
+            <button class="nav-btn" id="prevBtn">&#8592;</button>
+            <button class="nav-btn" id="nextBtn">&#8594;</button>
+        </div>
+        <div class="footer" style="margin-top:2.2rem;">
+            © 2026 FTMS CONCEPT – Tous droits réservés<br>
+            <span style="display:block;font-size:0.92em;color:#2a4d7a;line-height:1.5;margin-top:0.5em;">
+                <a href="http://www.ftms-concept.com/index.php" target="_blank"
+                    style="color:#2a4d7a;text-decoration:underline;">www.ftms-concept.com</a><br>
+                Tél : +(33) 4 26 17 58 65<br>
+                Siège social : 4 rue des ASTERS 01600 REYRIEUX
+            </span>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script>
+        const slides = [
+            {
+                type: 'intro',
+                logo: 'media/photo/logo ftms concept.png',
+                slogan: "Avant/Après : l’art de la transformation",
+                text: "Bienvenue chez FTMS CONCEPT, votre partenaire de confiance pour tous vos projets d’aménagement et de rénovation.",
+                certifs: true
+            },
+            {
+                type: 'text',
+                title: 'À propos, valeurs & dirigeant',
+                text: `<div style='display:flex;align-items:flex-start;gap:38px;flex-wrap:wrap;justify-content:flex-start;margin-top:32px;'>
+                                <img src=\"media/photo/dirigeant.png\" alt=\"Portrait du dirigeant\" class=\"dirigeant-mini\" style=\"width:130px;height:130px;margin-top:0.3rem;box-shadow:0 2px 18px #2a4d7a33;\">
+                                <div style=\"text-align:left;flex:1;min-width:220px;max-width:520px;\">
+                                    <div style=\"font-size:1.13rem;margin-bottom:0.7rem;\"><b>Depuis plus de 20 ans</b>, FTMS CONCEPT accompagne ses clients dans la transformation de leur habitat.</div>
+                                    <div style=\"font-size:1.08rem;margin-bottom:0.6rem;\">Notre équipe, passionnée et expérimentée, vous guide de la conception à la livraison, avec un seul objectif : <b>votre satisfaction</b>.</div>
+                                    <div style=\"font-size:1.07rem;margin-bottom:0.5rem;\"><b>Nos valeurs :</b> Conseils personnalisés, suivi de chantier, qualité, réactivité, transparence, professionnalisme.</div>
+                                    <div style=\"font-style:italic;font-size:1.04rem;margin-bottom:0.4rem;\">« Ma seule ambition est la satisfaction du client. »</div>
+                                    <div style=\"font-size:0.98rem;\">Transmise de génération en génération, la passion du bâtiment guide chaque projet FTMS CONCEPT.</div>
+                                </div>
+                            </div>`
+            },
+            // Phrase d'accroche avant les photos/vidéos
+            {
+                type: 'text',
+                title: 'Découvrez nos réalisations',
+                text: `<div style=\"font-size:1.18rem;color:#2a4d7a;font-weight:500;margin:2.2rem 0 1.2rem 0;text-align:center;\">Exemple de chantier : rénovation complète d'une salle de bain à Villefranche-sur-Saône.<br>Avant, pendant et après notre intervention.</div>`
+            },
+            {
+                type: 'media',
+                title: 'Avant',
+                src: 'media/photo/Villefranche avant 1 .jpeg',
+                text: "Avant notre intervention, la salle de bain manquait de confort et de modernité…"
+            },
+            {
+                type: 'media',
+                title: 'Avant',
+                src: 'media/video/Chamelet  salle de  bain avant.mp4',
+                text: "Un espace à réinventer, prêt à accueillir une nouvelle vie.",
+                isVideo: true
+            },
+            {
+                type: 'media',
+                title: 'Pendant',
+                src: 'media/photo/Villefranche pendant 2.jpeg',
+                text: "Le chantier prend forme, chaque détail compte pour un résultat parfait."
+            },
+            {
+                type: 'media',
+                title: 'Pendant',
+                src: 'media/photo/Villefranche pendant 3.jpeg',
+                text: "Notre équipe à l’œuvre, entre savoir-faire et passion."
+            },
+            // Après
+            {
+                type: 'media',
+                title: 'Après',
+                src: 'media/photo/Photo salle de bain Villefranche finit après 1.jpeg',
+                text: "Après notre passage, découvrez une salle de bain lumineuse, élégante et fonctionnelle."
+            },
+            {
+                type: 'media',
+                title: 'Après',
+                src: 'media/video/Chamelet apres.mp4',
+                text: "Un résultat à la hauteur de vos attentes, pensé pour votre bien-être au quotidien.",
+                isVideo: true
+            },
+            // Finale supprimée
+        ];
+
+        const slidesContainer = document.getElementById('slides-container');
+        let currentSlide = 0;
+
+        function renderSlides() {
+            slidesContainer.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const div = document.createElement('div');
+                div.className = 'slide' + (idx === currentSlide ? ' active' : '');
+                // Ajout du logo mini sur toutes les slides sauf la première (déjà le grand logo)
+                if (slide.type === 'intro') {
+                    div.innerHTML = `
+                                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;">
+                                    <img src="${slide.logo}" alt="Logo" style="width:180px;max-width:60vw;max-height:180px;margin-bottom:1.2rem;object-fit:contain;">
+                                    <div style="font-size:2.1rem;font-weight:bold;color:#2a4d7a;margin-bottom:0.7rem;letter-spacing:1px;">FTMS CONCEPT</div>
+                                    <div class="slogan" style="font-size:1.25rem;margin-bottom:0.7rem;font-weight:bold;color:#333;">${slide.slogan}</div>
+                                    <div class="slide-text" style="font-size:1.13rem;margin-bottom:2.7rem;max-width:520px;">${slide.text}</div>
+                                    <div style="display:flex;gap:38px;justify-content:center;align-items:center;margin:1.5rem 0 0.7rem 0;">
+                                        <img src="media/photo/capeb.jpg" alt="CAPEB" style="height:70px;width:auto;object-fit:contain;border-radius:10px;background:#f7f7f7;box-shadow:0 2px 12px #0002;padding:6px 18px;">
+                                        <img src="media/photo/ecoartisant.png" alt="Eco Artisan" style="height:70px;width:auto;object-fit:contain;border-radius:10px;background:#f7f7f7;box-shadow:0 2px 12px #0002;padding:6px 18px;">
+                                        <img src="media/photo/qualibat.png" alt="Qualibat" style="height:70px;width:auto;object-fit:contain;border-radius:10px;background:#f7f7f7;box-shadow:0 2px 12px #0002;padding:6px 18px;">
+                                    </div>
+                                </div>
+                        `;
+                } else {
+                    div.innerHTML = `<img src="media/photo/logo ftms concept.png" class="slide-logo-mini" alt="logo mini">`;
+                    if (slide.type === 'text') {
+                        div.innerHTML += `
+              <div class="slide-title" style="font-size:1.18rem;color:#2a4d7a;font-weight:500;margin-bottom:1.1rem;text-align:center;text-transform:capitalize;">${slide.title}</div>
+              <div class="slide-text" style="padding:0 0.5rem;">${slide.text}</div>
+            `;
+                    } else if (slide.type === 'media') {
+                        div.innerHTML += `
+                            <div class="slide-title">${slide.title}</div>
+                            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:270px;">
+                                ${slide.isVideo ? `<video class="media" style="max-height:390px;max-width:98%;margin-top:1.2rem;margin-bottom:1.2rem;" src="${slide.src}" controls></video>` : `<img src="${slide.src}" class="media" style="max-height:390px;max-width:98%;margin-top:1.2rem;margin-bottom:1.2rem;" alt="${slide.title}">`}
+                            </div>
+                            <div class="slide-text">${slide.text}</div>
+                        `;
+                    } else if (slide.type === 'qr') {
+                        div.innerHTML += `
+                            <div class="slide-title">${slide.title}</div>
+                            <div class="slide-text">${slide.text}</div>
+                            <div class="qr"><canvas id="qr-canvas"></canvas></div>
+                        `;
+                    }
+                }
+                slidesContainer.appendChild(div);
+            });
+            if (slides[currentSlide].type === 'qr') {
+                setTimeout(() => {
+                    const qr = new QRious({
+                        element: document.getElementById('qr-canvas'),
+                        value: slides[currentSlide].qrUrl,
+                        size: 180
+                    });
+                }, 100);
+            }
+        }
+
+        function showSlide(idx) {
+            if (idx < 0 || idx >= slides.length) return;
+            currentSlide = idx;
+            renderSlides();
+        }
+
+        document.getElementById('prevBtn').onclick = () => showSlide(currentSlide - 1);
+        document.getElementById('nextBtn').onclick = () => showSlide(currentSlide + 1);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+            if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
+        });
+        renderSlides();
+    </script>
+</body>
+
+</html>

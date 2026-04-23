@@ -1,339 +1,443 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FTMS CONCEPT - Avant/Après</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Montserrat', Arial, sans-serif;
-            background: #f7f7f7;
-            color: #222;
-            min-height: 100vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0e1f3d;
+  --navy-mid:#1a3461;
+  --navy-light:#2a4d7a;
+  --teal:#00b5b0;
+  --teal-dark:#008f8b;
+  --teal-glow:rgba(0,181,176,0.18);
+  --cream:#f5f3ee;
+  --white:#ffffff;
+  --gray:#8a8f9d;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;overflow-x:hidden;}
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
+.app{width:100%;max-width:780px;margin:0 auto;position:relative;}
 
-        .slide {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-            padding: 2.5rem 2.5rem 2.5rem 2.5rem;
-            text-align: center;
-            margin-top: 2rem;
-            min-height: 520px;
-            max-width: 700px;
-            min-width: 320px;
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            justify-content: flex-start;
-            position: relative;
-        }
+.progress-bar{display:flex;gap:6px;justify-content:center;padding:18px 0 10px;}
+.prog-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.18);transition:all 0.35s;cursor:pointer;}
+.prog-dot.active{background:var(--teal);width:22px;border-radius:3px;}
 
-        .slide.active {
-            display: flex;
-        }
+.card{
+  background:var(--white);
+  border-radius:24px;
+  overflow:hidden;
+  position:relative;
+  min-height:520px;
+  display:none;
+  flex-direction:column;
+  box-shadow:0 32px 80px rgba(0,0,0,0.45);
+}
+.card.active{display:flex;}
 
-        .slide-logo-mini {
-            position: absolute;
-            top: 18px;
-            right: 18px;
-            width: 54px;
-            height: 54px;
-            object-fit: contain;
-            opacity: 0.85;
-            z-index: 2;
-        }
+.card-accent{
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--navy) 0%,var(--teal) 100%);
+}
 
-        .media {
-            max-width: 100%;
-            max-height: 340px;
-            border-radius: 12px;
-            margin-bottom: 1.2rem;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-            background: #f2f2f2;
-            object-fit: contain;
-        }
+/* SLIDE 1 - INTRO */
+.intro-inner{
+  background:var(--navy);
+  color:var(--white);
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:3rem 2.5rem;
+  gap:0;
+}
+.logo-shape{
+  width:70px;height:70px;margin-bottom:1.5rem;
+  display:flex;align-items:flex-end;justify-content:center;gap:5px;
+}
+.bar{border-radius:3px 3px 0 0;background:var(--white);}
+.bar.teal{background:var(--teal);}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:600;letter-spacing:3px;color:var(--white);margin-bottom:0.3rem;}
+.brand-sub{font-size:0.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--teal);margin-bottom:2rem;font-weight:500;}
+.intro-tagline{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;color:rgba(255,255,255,0.85);text-align:center;line-height:1.4;margin-bottom:2rem;max-width:440px;}
+.teal-line{width:48px;height:2px;background:var(--teal);margin:0 auto 1.8rem;}
+.intro-text{font-size:0.9rem;color:rgba(255,255,255,0.55);text-align:center;line-height:1.7;max-width:380px;margin-bottom:2.2rem;}
+.certifs-row{display:flex;gap:20px;align-items:center;justify-content:center;}
+.certif-badge{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:8px 16px;font-size:0.72rem;color:rgba(255,255,255,0.6);letter-spacing:1px;text-transform:uppercase;font-weight:500;}
+.certif-badge.t{color:var(--teal);border-color:rgba(0,181,176,0.3);}
 
-        .dirigeant-mini {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 0.7rem;
-            border: 2px solid #2a4d7a22;
-            box-shadow: 0 2px 8px #2a4d7a11;
-        }
+/* SLIDE 2 - ABOUT */
+.about-inner{flex:1;display:flex;flex-direction:column;}
+.about-top{background:var(--navy);padding:2rem 2.5rem 1.5rem;display:flex;align-items:center;gap:1.5rem;}
+.avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--navy-mid),var(--teal-dark));display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--white);font-weight:600;flex-shrink:0;border:2px solid rgba(0,181,176,0.4);}
+.about-head{color:var(--white);}
+.about-head h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;margin-bottom:0.2rem;}
+.about-head p{font-size:0.78rem;color:var(--teal);letter-spacing:2px;text-transform:uppercase;}
+.about-body{padding:2rem 2.5rem;flex:1;display:flex;flex-direction:column;gap:1.2rem;}
+.stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.stat-card{background:var(--cream);border-radius:12px;padding:1rem;text-align:center;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--navy);line-height:1;}
+.stat-label{font-size:0.7rem;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-top:0.3rem;}
+.values-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:0.3rem;}
+.val-tag{background:var(--teal-glow);border:1px solid rgba(0,181,176,0.25);border-radius:20px;padding:5px 14px;font-size:0.75rem;color:var(--teal-dark);font-weight:500;}
+.quote-block{border-left:3px solid var(--teal);padding-left:1rem;font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--navy-light);font-style:italic;}
 
-        .certifs {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            margin-top: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
+/* SLIDE 3 - ACCROCHE */
+.accroche-inner{flex:1;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2.5rem;text-align:center;gap:1.2rem;}
+.section-label{font-size:0.68rem;letter-spacing:5px;text-transform:uppercase;color:var(--teal);font-weight:500;}
+.accroche-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--white);line-height:1.25;max-width:440px;}
+.accroche-body{font-size:0.9rem;color:rgba(255,255,255,0.55);line-height:1.7;max-width:380px;}
+.location-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:30px;padding:8px 18px;font-size:0.78rem;color:rgba(255,255,255,0.6);}
+.dot-teal{width:8px;height:8px;border-radius:50%;background:var(--teal);}
 
-        .certif-img {
-            height: 38px;
-            width: auto;
-            object-fit: contain;
-            border-radius: 6px;
-            background: #f7f7f7;
-            box-shadow: 0 1px 4px #0001;
-            padding: 2px 6px;
-        }
+/* SLIDES MEDIA */
+.media-inner{flex:1;display:flex;flex-direction:column;}
+.media-header{padding:1.5rem 2rem 1rem;display:flex;align-items:center;justify-content:space-between;}
+.phase-badge{display:inline-flex;align-items:center;gap:8px;border-radius:30px;padding:6px 16px;font-size:0.72rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;}
+.phase-avant{background:#fff0f0;color:#c0392b;border:1px solid #f5c6c6;}
+.phase-pendant{background:#fff8e6;color:#b7770d;border:1px solid #f5e0b0;}
+.phase-apres{background:#e6f9f5;color:#0a7a65;border:1px solid #a8e6d5;}
+.slide-counter{font-size:0.78rem;color:var(--gray);font-weight:500;}
+.media-frame{flex:1;background:var(--cream);display:flex;align-items:center;justify-content:center;min-height:310px;overflow:hidden;position:relative;}
+.media-frame img,.media-frame video{width:100%;height:100%;object-fit:contain;max-height:350px;}
+.media-caption{padding:1.2rem 2rem 1.5rem;display:flex;align-items:flex-start;gap:12px;}
+.caption-icon{width:3px;flex-shrink:0;height:100%;background:var(--teal);border-radius:2px;align-self:stretch;min-height:30px;}
+.caption-text{font-size:0.88rem;color:#444;line-height:1.6;font-style:italic;}
 
-        .footer-contact {
-            font-size: 0.72rem;
-            color: #2a4d7a;
-            margin-top: 2.2rem;
-            margin-bottom: 0.1rem;
-            text-align: center;
-            line-height: 1.4;
-            opacity: 0.7;
-        }
+/* BEFORE/AFTER SLIDER SLIDE */
+.slider-slide{flex:1;display:flex;flex-direction:column;}
+.slider-header{padding:1.5rem 2rem 1rem;display:flex;align-items:center;justify-content:space-between;}
+.ba-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--navy);}
+.ba-subtitle{font-size:0.75rem;color:var(--gray);margin-top:0.2rem;}
+.comparison-wrapper{flex:1;position:relative;overflow:hidden;cursor:ew-resize;min-height:300px;background:#eee;}
+.comp-img{position:absolute;top:0;left:0;right:0;bottom:0;object-fit:cover;width:100%;height:100%;}
+.comp-after{clip-path:inset(0 50% 0 0);}
+.comp-divider{position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--white);transform:translateX(-50%);z-index:10;pointer-events:none;}
+.comp-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--white);z-index:11;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.25);pointer-events:none;}
+.handle-arrows{font-size:14px;color:var(--navy);font-weight:700;letter-spacing:-2px;}
+.label-avant{position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.55);color:#fff;border-radius:6px;padding:4px 10px;font-size:0.7rem;font-weight:500;letter-spacing:1px;z-index:9;}
+.label-apres{position:absolute;top:12px;right:12px;background:rgba(0,181,176,0.85);color:#fff;border-radius:6px;padding:4px 10px;font-size:0.7rem;font-weight:500;letter-spacing:1px;z-index:9;}
+.slider-hint{padding:1rem 2rem 1.5rem;text-align:center;font-size:0.78rem;color:var(--gray);}
 
-        .footer {
-            margin-top: 2rem;
-            font-size: 0.95rem;
-            color: #888;
-            text-align: center;
-        }
+/* NAV */
+.nav-area{display:flex;align-items:center;justify-content:center;gap:16px;padding:20px 0 24px;}
+.nav-btn{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.06);color:var(--white);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.nav-btn:hover{background:var(--teal);border-color:var(--teal);}
+.nav-btn:disabled{opacity:0.2;cursor:default;}
+.nav-center{font-size:0.78rem;color:rgba(255,255,255,0.4);min-width:60px;text-align:center;}
 
-        .nav-btn {
-            background: #2a4d7a;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            font-size: 1.7rem;
-            cursor: pointer;
-            margin: 0 1rem;
-            transition: background 0.2s;
-        }
+.footer-area{text-align:center;padding:0 0 20px;color:rgba(255,255,255,0.3);font-size:0.72rem;line-height:1.8;}
+.footer-area a{color:var(--teal);text-decoration:none;}
 
-        .nav-btn:active {
-            background: #18304d;
-        }
-
-        @media (max-width: 700px) {
-            .container {
-                max-width: 99vw;
-            }
-
-            .slide {
-                padding: 0.7rem 0.1rem;
-                max-width: 99vw;
-            }
-
-            .media {
-                max-height: 160px;
-            }
-
-            .slide-logo-mini {
-                width: 36px;
-                height: 36px;
-                top: 8px;
-                right: 8px;
-            }
-
-            .dirigeant-mini {
-                width: 44px;
-                height: 44px;
-            }
-
-            /* Responsive pour les images de certification */
-            .slide > div[style*='display:flex'][style*='gap'] {
-                flex-wrap: wrap !important;
-                gap: 10px !important;
-                max-width: 99vw;
-                justify-content: center !important;
-            }
-            .slide > div[style*='display:flex'][style*='gap'] img {
-                height: 48px !important;
-                max-width: 90vw !important;
-                min-width: 60px !important;
-                padding: 4px 4px !important;
-                box-sizing: border-box;
-            }
-        }
-    </style>
+@media(max-width:600px){
+  .brand-name{font-size:2rem;}
+  .stat-row{grid-template-columns:1fr 1fr;}
+  .accroche-title{font-size:1.7rem;}
+}
+</style>
 </head>
-
 <body>
-    <div class="container">
-        <div id="slides-container"></div>
-        <div style="margin-top:1.5rem; text-align:center;">
-            <button class="nav-btn" id="prevBtn">&#8592;</button>
-            <button class="nav-btn" id="nextBtn">&#8594;</button>
-        </div>
-        <div class="footer" style="margin-top:2.2rem;">
-            © 2026 FTMS CONCEPT – Tous droits réservés<br>
-            <span style="display:block;font-size:0.92em;color:#2a4d7a;line-height:1.5;margin-top:0.5em;">
-                <a href="http://www.ftms-concept.com/index.php" target="_blank"
-                    style="color:#2a4d7a;text-decoration:underline;">www.ftms-concept.com</a><br>
-                Tél : +(33) 4 26 17 58 65<br>
-                Siège social : 4 rue des ASTERS 01600 REYRIEUX
-            </span>
-        </div>
+<div class="app">
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- SLIDE 1: INTRO -->
+  <div class="card active" id="slide-0">
+    <div class="card-accent"></div>
+    <div class="intro-inner">
+      <div class="logo-shape">
+        <div class="bar" style="width:14px;height:42px;"></div>
+        <div class="bar" style="width:14px;height:56px;"></div>
+        <div class="bar teal" style="width:10px;height:30px;margin-bottom:4px;"></div>
+      </div>
+      <div class="brand-name">FTMS CONCEPT</div>
+      <div class="brand-sub">Rénovation & Aménagement</div>
+      <div class="teal-line"></div>
+      <div class="intro-tagline">L'art de la transformation,<br>du premier coup de crayon<br>à la livraison finale.</div>
+      <div class="intro-text">Votre partenaire de confiance pour tous vos projets d'aménagement et de rénovation depuis plus de 20 ans.</div>
+      <div class="certifs-row">
+        <div class="certif-badge t">CAPEB</div>
+        <div class="certif-badge t">Éco Artisan</div>
+        <div class="certif-badge t">Qualibat</div>
+      </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
-    <script>
-        const slides = [
-            {
-                type: 'intro',
-                logo: 'media/photo/logo ftms concept.png',
-                slogan: "Avant/Après : l’art de la transformation",
-                text: "Bienvenue chez FTMS CONCEPT, votre partenaire de confiance pour tous vos projets d’aménagement et de rénovation.",
-                certifs: true
-            },
-            {
-                type: 'text',
-                title: 'À propos, valeurs & dirigeant',
-                text: `<div style='display:flex;align-items:flex-start;gap:38px;flex-wrap:wrap;justify-content:flex-start;margin-top:32px;'>
-                                <img src=\"media/photo/dirigeant.png\" alt=\"Portrait du dirigeant\" class=\"dirigeant-mini\" style=\"width:130px;height:130px;margin-top:0.3rem;box-shadow:0 2px 18px #2a4d7a33;\">
-                                <div style=\"text-align:left;flex:1;min-width:220px;max-width:520px;\">
-                                    <div style=\"font-size:1.13rem;margin-bottom:0.7rem;\"><b>Depuis plus de 20 ans</b>, FTMS CONCEPT accompagne ses clients dans la transformation de leur habitat.</div>
-                                    <div style=\"font-size:1.08rem;margin-bottom:0.6rem;\">Notre équipe, passionnée et expérimentée, vous guide de la conception à la livraison, avec un seul objectif : <b>votre satisfaction</b>.</div>
-                                    <div style=\"font-size:1.07rem;margin-bottom:0.5rem;\"><b>Nos valeurs :</b> Conseils personnalisés, suivi de chantier, qualité, réactivité, transparence, professionnalisme.</div>
-                                    <div style=\"font-style:italic;font-size:1.04rem;margin-bottom:0.4rem;\">« Ma seule ambition est la satisfaction du client. »</div>
-                                    <div style=\"font-size:0.98rem;\">Transmise de génération en génération, la passion du bâtiment guide chaque projet FTMS CONCEPT.</div>
-                                </div>
-                            </div>`
-            },
-            // Phrase d'accroche avant les photos/vidéos
-            {
-                type: 'text',
-                title: 'Découvrez nos réalisations',
-                text: `<div style=\"font-size:1.18rem;color:#2a4d7a;font-weight:500;margin:2.2rem 0 1.2rem 0;text-align:center;\">Exemple de chantier : rénovation complète d'une salle de bain à Villefranche-sur-Saône.<br>Avant, pendant et après notre intervention.</div>`
-            },
-            {
-                type: 'media',
-                title: 'Avant',
-                src: 'media/photo/Villefranche avant 1 .jpeg',
-                text: "Avant notre intervention, la salle de bain manquait de confort et de modernité…"
-            },
-            {
-                type: 'media',
-                title: 'Avant',
-                src: 'media/video/Chamelet  salle de  bain avant.mp4',
-                text: "Un espace à réinventer, prêt à accueillir une nouvelle vie.",
-                isVideo: true
-            },
-            {
-                type: 'media',
-                title: 'Pendant',
-                src: 'media/photo/Villefranche pendant 2.jpeg',
-                text: "Le chantier prend forme, chaque détail compte pour un résultat parfait."
-            },
-            {
-                type: 'media',
-                title: 'Pendant',
-                src: 'media/photo/Villefranche pendant 3.jpeg',
-                text: "Notre équipe à l’œuvre, entre savoir-faire et passion."
-            },
-            // Après
-            {
-                type: 'media',
-                title: 'Après',
-                src: 'media/photo/Photo salle de bain Villefranche finit après 1.jpeg',
-                text: "Après notre passage, découvrez une salle de bain lumineuse, élégante et fonctionnelle."
-            },
-            {
-                type: 'media',
-                title: 'Après',
-                src: 'media/video/Chamelet apres.mp4',
-                text: "Un résultat à la hauteur de vos attentes, pensé pour votre bien-être au quotidien.",
-                isVideo: true
-            },
-            // Finale supprimée
-        ];
+  </div>
 
-        const slidesContainer = document.getElementById('slides-container');
-        let currentSlide = 0;
+  <!-- SLIDE 2: À PROPOS -->
+  <div class="card" id="slide-1">
+    <div class="card-accent"></div>
+    <div class="about-inner">
+      <div class="about-top">
+        <div class="avatar">F</div>
+        <div class="about-head">
+          <h2>Notre histoire</h2>
+          <p>Fondateur & Dirigeant</p>
+        </div>
+      </div>
+      <div class="about-body">
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-num">20+</div>
+            <div class="stat-label">Ans d'expérience</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Satisfaction client</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">Clé<br><span style="font-size:1.3rem">en main</span></div>
+            <div class="stat-label">Conception → Livraison</div>
+          </div>
+        </div>
+        <div class="values-row">
+          <span class="val-tag">Conseil personnalisé</span>
+          <span class="val-tag">Suivi de chantier</span>
+          <span class="val-tag">Qualité</span>
+          <span class="val-tag">Réactivité</span>
+          <span class="val-tag">Transparence</span>
+        </div>
+        <div class="quote-block">
+          « Ma seule ambition est la satisfaction du client. »
+        </div>
+        <div style="font-size:0.85rem;color:var(--gray);line-height:1.6;">Transmise de génération en génération, la passion du bâtiment guide chaque projet FTMS CONCEPT.</div>
+      </div>
+    </div>
+  </div>
 
-        function renderSlides() {
-            slidesContainer.innerHTML = '';
-            slides.forEach((slide, idx) => {
-                const div = document.createElement('div');
-                div.className = 'slide' + (idx === currentSlide ? ' active' : '');
-                // Ajout du logo mini sur toutes les slides sauf la première (déjà le grand logo)
-                if (slide.type === 'intro') {
-                    div.innerHTML = `
-                                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;">
-                                    <img src="${slide.logo}" alt="Logo" style="width:180px;max-width:60vw;max-height:180px;margin-bottom:1.2rem;object-fit:contain;">
-                                    <div style="font-size:2.1rem;font-weight:bold;color:#2a4d7a;margin-bottom:0.7rem;letter-spacing:1px;">FTMS CONCEPT</div>
-                                    <div class="slogan" style="font-size:1.25rem;margin-bottom:0.7rem;font-weight:bold;color:#333;">${slide.slogan}</div>
-                                    <div class="slide-text" style="font-size:1.13rem;margin-bottom:2.7rem;max-width:520px;">${slide.text}</div>
-                                    <div style="display:flex;gap:38px;justify-content:center;align-items:center;margin:1.5rem 0 0.7rem 0;">
-                                        <img src="media/photo/capeb.jpg" alt="CAPEB" style="height:70px;width:auto;object-fit:contain;border-radius:10px;background:#f7f7f7;box-shadow:0 2px 12px #0002;padding:6px 18px;">
-                                        <img src="media/photo/ecoartisant.png" alt="Eco Artisan" style="height:70px;width:auto;object-fit:contain;border-radius:10px;background:#f7f7f7;box-shadow:0 2px 12px #0002;padding:6px 18px;">
-                                        <img src="media/photo/qualibat.png" alt="Qualibat" style="height:70px;width:auto;object-fit:contain;border-radius:10px;background:#f7f7f7;box-shadow:0 2px 12px #0002;padding:6px 18px;">
-                                    </div>
-                                </div>
-                        `;
-                } else {
-                    div.innerHTML = `<img src="media/photo/logo ftms concept.png" class="slide-logo-mini" alt="logo mini">`;
-                    if (slide.type === 'text') {
-                        div.innerHTML += `
-              <div class="slide-title" style="font-size:1.18rem;color:#2a4d7a;font-weight:500;margin-bottom:1.1rem;text-align:center;text-transform:capitalize;">${slide.title}</div>
-              <div class="slide-text" style="padding:0 0.5rem;">${slide.text}</div>
-            `;
-                    } else if (slide.type === 'media') {
-                        div.innerHTML += `
-                            <div class="slide-title">${slide.title}</div>
-                            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:270px;">
-                                ${slide.isVideo ? `<video class="media" style="max-height:390px;max-width:98%;margin-top:1.2rem;margin-bottom:1.2rem;" src="${slide.src}" controls></video>` : `<img src="${slide.src}" class="media" style="max-height:390px;max-width:98%;margin-top:1.2rem;margin-bottom:1.2rem;" alt="${slide.title}">`}
-                            </div>
-                            <div class="slide-text">${slide.text}</div>
-                        `;
-                    } else if (slide.type === 'qr') {
-                        div.innerHTML += `
-                            <div class="slide-title">${slide.title}</div>
-                            <div class="slide-text">${slide.text}</div>
-                            <div class="qr"><canvas id="qr-canvas"></canvas></div>
-                        `;
-                    }
-                }
-                slidesContainer.appendChild(div);
-            });
-            if (slides[currentSlide].type === 'qr') {
-                setTimeout(() => {
-                    const qr = new QRious({
-                        element: document.getElementById('qr-canvas'),
-                        value: slides[currentSlide].qrUrl,
-                        size: 180
-                    });
-                }, 100);
-            }
-        }
+  <!-- SLIDE 3: ACCROCHE -->
+  <div class="card" id="slide-2">
+    <div class="card-accent"></div>
+    <div class="accroche-inner">
+      <div class="section-label">Nos réalisations</div>
+      <div class="teal-line"></div>
+      <div class="accroche-title">Rénovation complète d'une salle de bain</div>
+      <div class="accroche-body">Découvrez notre intervention de A à Z : avant, pendant, et après la transformation. Chaque détail, pensé pour votre confort au quotidien.</div>
+      <div class="location-tag"><div class="dot-teal"></div>Villefranche-sur-Saône</div>
+    </div>
+  </div>
 
-        function showSlide(idx) {
-            if (idx < 0 || idx >= slides.length) return;
-            currentSlide = idx;
-            renderSlides();
-        }
+  <!-- SLIDE 4: AVANT photo -->
+  <div class="card" id="slide-3">
+    <div class="card-accent"></div>
+    <div class="media-inner">
+      <div class="media-header">
+        <span class="phase-badge phase-avant">● Avant</span>
+        <span class="slide-counter">Étape 1 / 4</span>
+      </div>
+      <div class="media-frame">
+        <img src="media/photo/Villefranche avant 1 .jpeg" alt="Salle de bain avant travaux" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div style="display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#aaa;width:100%;height:100%;min-height:300px;background:#f0f0f0;">
+          <div style="font-size:2.5rem;">🛁</div>
+          <div style="font-size:0.85rem;">Villefranche avant 1.jpeg</div>
+        </div>
+      </div>
+      <div class="media-caption">
+        <div class="caption-icon"></div>
+        <div class="caption-text">Avant notre intervention, la salle de bain manquait de confort et de modernité. Un espace prêt à être réinventé.</div>
+      </div>
+    </div>
+  </div>
 
-        document.getElementById('prevBtn').onclick = () => showSlide(currentSlide - 1);
-        document.getElementById('nextBtn').onclick = () => showSlide(currentSlide + 1);
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
-            if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
-        });
-        renderSlides();
-    </script>
+  <!-- SLIDE 5: AVANT vidéo -->
+  <div class="card" id="slide-4">
+    <div class="card-accent"></div>
+    <div class="media-inner">
+      <div class="media-header">
+        <span class="phase-badge phase-avant">● Avant</span>
+        <span class="slide-counter">Étape 2 / 4</span>
+      </div>
+      <div class="media-frame">
+        <video src="media/video/Chamelet  salle de  bain avant.mp4" controls style="max-height:350px;width:100%;object-fit:contain;background:#111;" onerror="this.style.display='none'"></video>
+      </div>
+      <div class="media-caption">
+        <div class="caption-icon"></div>
+        <div class="caption-text">Un espace à réinventer, prêt à accueillir une nouvelle vie. La vidéo révèle l'état initial avant transformation.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: PENDANT 1 -->
+  <div class="card" id="slide-5">
+    <div class="card-accent"></div>
+    <div class="media-inner">
+      <div class="media-header">
+        <span class="phase-badge phase-pendant">● Pendant</span>
+        <span class="slide-counter">Étape 3 / 4 — Chantier</span>
+      </div>
+      <div class="media-frame">
+        <img src="media/photo/Villefranche pendant 2.jpeg" alt="Chantier en cours" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div style="display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#aaa;width:100%;height:100%;min-height:300px;background:#f0f0f0;">
+          <div style="font-size:2.5rem;">🔨</div>
+          <div style="font-size:0.85rem;">Villefranche pendant 2.jpeg</div>
+        </div>
+      </div>
+      <div class="media-caption">
+        <div class="caption-icon"></div>
+        <div class="caption-text">Le chantier prend forme. Chaque détail est pensé en amont pour garantir un résultat parfait à la livraison.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: PENDANT 2 -->
+  <div class="card" id="slide-6">
+    <div class="card-accent"></div>
+    <div class="media-inner">
+      <div class="media-header">
+        <span class="phase-badge phase-pendant">● Pendant</span>
+        <span class="slide-counter">Étape 3 / 4 — Suite</span>
+      </div>
+      <div class="media-frame">
+        <img src="media/photo/Villefranche pendant 3.jpeg" alt="Chantier en cours" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div style="display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#aaa;width:100%;height:100%;min-height:300px;background:#f0f0f0;">
+          <div style="font-size:2.5rem;">🔧</div>
+          <div style="font-size:0.85rem;">Villefranche pendant 3.jpeg</div>
+        </div>
+      </div>
+      <div class="media-caption">
+        <div class="caption-icon"></div>
+        <div class="caption-text">Notre équipe à l'œuvre — entre savoir-faire artisanal et passion du travail bien fait.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: COMPARATEUR AVANT/APRÈS -->
+  <div class="card" id="slide-7">
+    <div class="card-accent"></div>
+    <div class="slider-slide">
+      <div class="slider-header">
+        <div>
+          <div class="ba-title">Avant / Après</div>
+          <div class="ba-subtitle">Glissez pour comparer</div>
+        </div>
+        <span class="phase-badge phase-apres">✓ Résultat final</span>
+      </div>
+      <div class="comparison-wrapper" id="compWrapper">
+        <img class="comp-img" src="media/photo/Photo salle de bain Villefranche finit après 1.jpeg" alt="Après" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'350\'><rect fill=\'%2300b5b0\' width=\'600\' height=\'350\'/><text x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' fill=\'white\' font-size=\'16\'>APRÈS</text></svg>'">
+        <img class="comp-img comp-after" id="compAfter" src="media/photo/Villefranche avant 1 .jpeg" alt="Avant" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'350\'><rect fill=\'%23ddd\' width=\'600\' height=\'350\'/><text x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' fill=\'%23999\' font-size=\'16\'>AVANT</text></svg>'">
+        <div class="label-avant">AVANT</div>
+        <div class="label-apres">APRÈS</div>
+        <div class="comp-divider" id="compDivider"></div>
+        <div class="comp-handle" id="compHandle"><span class="handle-arrows">◀ ▶</span></div>
+      </div>
+      <div class="slider-hint">← Faites glisser pour révéler la transformation →</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: APRÈS vidéo -->
+  <div class="card" id="slide-8">
+    <div class="card-accent"></div>
+    <div class="media-inner">
+      <div class="media-header">
+        <span class="phase-badge phase-apres">✓ Après</span>
+        <span class="slide-counter">Étape 4 / 4 — Livraison</span>
+      </div>
+      <div class="media-frame" style="background:#111;">
+        <video src="media/video/Chamelet apres.mp4" controls style="max-height:350px;width:100%;object-fit:contain;" onerror="this.style.display='none'"></video>
+      </div>
+      <div class="media-caption">
+        <div class="caption-icon"></div>
+        <div class="caption-text">Un résultat à la hauteur de vos attentes — lumineuse, élégante, fonctionnelle. Pensée pour votre bien-être au quotidien.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: CONTACT -->
+  <div class="card" id="slide-9">
+    <div class="card-accent"></div>
+    <div class="intro-inner" style="gap:0;">
+      <div class="logo-shape">
+        <div class="bar" style="width:12px;height:36px;"></div>
+        <div class="bar" style="width:12px;height:48px;"></div>
+        <div class="bar teal" style="width:9px;height:26px;margin-bottom:4px;"></div>
+      </div>
+      <div class="brand-name" style="font-size:2rem;">Votre projet ?</div>
+      <div class="teal-line"></div>
+      <div class="intro-tagline" style="font-size:1.25rem;">Parlons-en ensemble.<br>Devis gratuit et sans engagement.</div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin:1.5rem 0;width:100%;max-width:320px;">
+        <a href="tel:+33426175865" style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:14px 18px;text-decoration:none;color:var(--white);">
+          <span style="font-size:1rem;">📞</span>
+          <span style="font-size:0.9rem;">+(33) 4 26 17 58 65</span>
+        </a>
+        <a href="http://www.ftms-concept.com" target="_blank" style="display:flex;align-items:center;gap:12px;background:var(--teal);border-radius:12px;padding:14px 18px;text-decoration:none;color:var(--white);">
+          <span style="font-size:1rem;">🌐</span>
+          <span style="font-size:0.9rem;font-weight:500;">www.ftms-concept.com</span>
+        </a>
+      </div>
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.3);text-align:center;line-height:1.8;">4 rue des Asters — 01600 Reyrieux<br>© 2026 FTMS CONCEPT – Tous droits réservés</div>
+    </div>
+  </div>
+
+  <div class="nav-area">
+    <button class="nav-btn" id="prevBtn" onclick="go(-1)">←</button>
+    <div class="nav-center" id="navCenter">1 / 10</div>
+    <button class="nav-btn" id="nextBtn" onclick="go(1)">→</button>
+  </div>
+
+  <div class="footer-area">
+    <a href="http://www.ftms-concept.com" target="_blank">www.ftms-concept.com</a> &nbsp;·&nbsp; 4 26 17 58 65 &nbsp;·&nbsp; Reyrieux
+  </div>
+</div>
+
+<script>
+const TOTAL = 10;
+let cur = 0;
+
+const progressBar = document.getElementById('progressBar');
+for(let i=0;i<TOTAL;i++){
+  const d = document.createElement('div');
+  d.className='prog-dot'+(i===0?' active':'');
+  d.onclick=()=>setSlide(i);
+  progressBar.appendChild(d);
+}
+
+function setSlide(n){
+  document.getElementById('slide-'+cur).classList.remove('active');
+  cur=n;
+  document.getElementById('slide-'+cur).classList.add('active');
+  document.querySelectorAll('.prog-dot').forEach((d,i)=>{
+    d.className='prog-dot'+(i===cur?' active':'');
+  });
+  document.getElementById('navCenter').textContent=(cur+1)+' / '+TOTAL;
+  document.getElementById('prevBtn').disabled=cur===0;
+  document.getElementById('nextBtn').disabled=cur===TOTAL-1;
+}
+
+function go(dir){setSlide(cur+dir);}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft'&&cur>0)go(-1);
+  if(e.key==='ArrowRight'&&cur<TOTAL-1)go(1);
+});
+
+let startX=null;
+document.getElementById('slides-container')||document.querySelector('.app').addEventListener('touchstart',e=>{startX=e.touches[0].clientX;},{passive:true});
+document.querySelector('.app').addEventListener('touchstart',e=>{startX=e.touches[0].clientX;},{passive:true});
+document.querySelector('.app').addEventListener('touchend',e=>{
+  if(startX===null)return;
+  const dx=e.changedTouches[0].clientX-startX;
+  if(Math.abs(dx)>50){if(dx<0&&cur<TOTAL-1)go(1);else if(dx>0&&cur>0)go(-1);}
+  startX=null;
+});
+
+const wrapper=document.getElementById('compWrapper');
+const after=document.getElementById('compAfter');
+const divider=document.getElementById('compDivider');
+const handle=document.getElementById('compHandle');
+
+function setComp(x){
+  const r=wrapper.getBoundingClientRect();
+  let pct=Math.max(5,Math.min(95,((x-r.left)/r.width)*100));
+  after.style.clipPath=`inset(0 ${100-pct}% 0 0)`;
+  divider.style.left=pct+'%';
+  handle.style.left=pct+'%';
+}
+
+wrapper.addEventListener('mousemove',e=>setComp(e.clientX));
+wrapper.addEventListener('touchmove',e=>{e.stopPropagation();setComp(e.touches[0].clientX);},{passive:true});
+
+document.getElementById('prevBtn').disabled=true;
+</script>
 </body>
-
 </html>

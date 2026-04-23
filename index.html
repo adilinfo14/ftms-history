@@ -170,7 +170,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;di
     <div class="card-accent"></div>
     <div class="about-inner">
       <div class="about-top">
-        <div class="avatar">F</div>
+        <div class="avatar" style="overflow:hidden;padding:0;">
+          <img src="media/photo/dirigeant.png" alt="Dirigeant FTMS" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" onerror="this.style.display='none';this.parentNode.textContent='F';">
+        </div>
         <div class="about-head">
           <h2>Notre histoire</h2>
           <p>Fondateur & Dirigeant</p>
@@ -227,7 +229,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;di
         <span class="slide-counter">Étape 1 / 4</span>
       </div>
       <div class="media-frame">
-        <img src="media/photo/Villefranche avant 1 .jpeg" alt="Salle de bain avant travaux" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="media/photo/Villefranche avant 1 .jpeg" alt="Salle de bain avant travaux" onerror="this.style.display='none';this.nextElementSibling && (this.nextElementSibling.style.display='flex')">
         <div style="display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#aaa;width:100%;height:100%;min-height:300px;background:#f0f0f0;">
           <div style="font-size:2.5rem;">🛁</div>
           <div style="font-size:0.85rem;">Villefranche avant 1.jpeg</div>
@@ -240,26 +242,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;di
     </div>
   </div>
 
-  <!-- SLIDE 5: AVANT vidéo -->
-  <div class="card" id="slide-4">
-    <div class="card-accent"></div>
-    <div class="media-inner">
-      <div class="media-header">
-        <span class="phase-badge phase-avant">● Avant</span>
-        <span class="slide-counter">Étape 2 / 4</span>
-      </div>
-      <div class="media-frame">
-        <video src="media/video/Chamelet  salle de  bain avant.mp4" controls style="max-height:350px;width:100%;object-fit:contain;background:#111;" onerror="this.style.display='none'"></video>
-      </div>
-      <div class="media-caption">
-        <div class="caption-icon"></div>
-        <div class="caption-text">Un espace à réinventer, prêt à accueillir une nouvelle vie. La vidéo révèle l'état initial avant transformation.</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- SLIDE 6: PENDANT 1 -->
-  <div class="card" id="slide-5">
+  <!-- SLIDE 5: PENDANT 1 -->
+  <div class="card" id="slide-4">
     <div class="card-accent"></div>
     <div class="media-inner">
       <div class="media-header">
@@ -280,8 +265,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;di
     </div>
   </div>
 
-  <!-- SLIDE 7: PENDANT 2 -->
-  <div class="card" id="slide-6">
+  <!-- SLIDE 6: PENDANT 2 -->
+  <div class="card" id="slide-5">
     <div class="card-accent"></div>
     <div class="media-inner">
       <div class="media-header">
@@ -302,8 +287,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;di
     </div>
   </div>
 
-  <!-- SLIDE 8: COMPARATEUR AVANT/APRÈS -->
-  <div class="card" id="slide-7">
+  <!-- SLIDE 7: COMPARATEUR AVANT/APRÈS -->
+  <div class="card" id="slide-6">
     <div class="card-accent"></div>
     <div class="slider-slide">
       <div class="slider-header">
@@ -325,13 +310,43 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;di
     </div>
   </div>
 
-  <!-- SLIDE 9: APRÈS vidéo -->
+  <!-- SLIDE 8: ACCROCHE CHAMELET -->
+  <div class="card" id="slide-7">
+    <div class="card-accent"></div>
+    <div class="accroche-inner">
+      <div class="section-label">Nos réalisations</div>
+      <div class="teal-line"></div>
+      <div class="accroche-title">Transformation d'une salle de bain à Chamelet</div>
+      <div class="accroche-body">Un projet sur-mesure, de la démolition à la touche finale : modernisation, optimisation de l’espace, finitions soignées. À Chamelet, chaque étape a été pensée pour conjuguer esthétique, fonctionnalité et bien-être au quotidien.</div>
+      <div class="location-tag"><div class="dot-teal"></div>Chamelet</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: AVANT vidéo CHAMELET -->
   <div class="card" id="slide-8">
     <div class="card-accent"></div>
     <div class="media-inner">
       <div class="media-header">
+        <span class="phase-badge phase-avant">● Avant</span>
+        <span class="slide-counter">Étape 1 / 2</span>
+      </div>
+      <div class="media-frame">
+        <video src="media/video/Chamelet  salle de  bain avant.mp4" controls style="max-height:350px;width:100%;object-fit:contain;background:#111;" onerror="this.style.display='none'"></video>
+      </div>
+      <div class="media-caption">
+        <div class="caption-icon"></div>
+        <div class="caption-text">Un espace à réinventer, prêt à accueillir une nouvelle vie. La vidéo révèle l'état initial avant transformation.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: APRÈS vidéo CHAMELET -->
+  <div class="card" id="slide-9">
+    <div class="card-accent"></div>
+    <div class="media-inner">
+      <div class="media-header">
         <span class="phase-badge phase-apres">✓ Après</span>
-        <span class="slide-counter">Étape 4 / 4 — Livraison</span>
+        <span class="slide-counter">Étape 2 / 2 — Livraison</span>
       </div>
       <div class="media-frame" style="background:#111;">
         <video src="media/video/Chamelet apres.mp4" controls style="max-height:350px;width:100%;object-fit:contain;" onerror="this.style.display='none'"></video>
@@ -343,8 +358,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;di
     </div>
   </div>
 
-  <!-- SLIDE 10: CONTACT -->
-  <div class="card" id="slide-9">
+  <!-- SLIDE 11: CONTACT -->
+  <div class="card" id="slide-10">
     <div class="card-accent"></div>
     <div class="intro-inner" style="gap:0;">
       <div class="logo-shape">
@@ -371,7 +386,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;di
 
   <div class="nav-area">
     <button class="nav-btn" id="prevBtn" onclick="go(-1)">←</button>
-    <div class="nav-center" id="navCenter">1 / 10</div>
+    <div class="nav-center" id="navCenter">1 / 11</div>
     <button class="nav-btn" id="nextBtn" onclick="go(1)">→</button>
   </div>
 
@@ -381,7 +396,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;di
 </div>
 
 <script>
-const TOTAL = 10;
+const TOTAL = 11;
 let cur = 0;
 
 const progressBar = document.getElementById('progressBar');

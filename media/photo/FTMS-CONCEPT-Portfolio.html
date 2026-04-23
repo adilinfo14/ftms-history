@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FTMS CONCEPT — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0e1f3d;
+      color: #fff;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 16px 80px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .photos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin: 24px 0;
+    }
+
+    .photos img {
+      width: 220px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px #0003;
+      background: #fff;
+    }
+
+    .btn-download {
+      display: inline-block;
+      margin: 32px auto 0;
+      padding: 16px 32px;
+      background: #00b5b0;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .btn-download:hover {
+      background: #008f8b;
+    }
+
+    .footer {
+      text-align: center;
+      color: #b5c6d6;
+      margin-top: 60px;
+      font-size: .95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 style="text-align:center;letter-spacing:2px;">FTMS CONCEPT</h1>
+    <h2 style="text-align:center;color:#00b5b0;letter-spacing:1.5px;">Rénovation & Aménagement</h2>
+    <div class="section" style="text-align:center;">
+      <p style="font-size:1.2rem;max-width:600px;margin:18px auto 0;">L'art de la transformation, du premier coup de
+        crayon à la livraison finale.<br>Votre partenaire de confiance depuis plus de 20 ans.</p>
+    </div>
+    <div class="section">
+      <h3>À propos</h3>
+      <p>FTMS CONCEPT est une entreprise créée en 2012, par FAHOUI Tarek, qui compte plus de 20 ans d’expérience dans
+        les métiers du bâtiment. Capital : 100 000 €.<br>
+        Nous proposons gracieusement les conseils de décorateurs, assurons le suivi du chantier, et sélectionnons des
+        partenaires fabricants pour la qualité de leurs produits.<br>
+        De la conception à la livraison, un seul interlocuteur. SAV assuré, garantie décennale GROUPAMA.<br>
+        FTMS CONCEPT vous accompagne en toute confiance dans tous vos projets pour l’amélioration de votre habitat.</p>
+      <div class="photos">
+        <img src="media/photo/dirigeant.png" alt="Dirigeant FTMS" />
+      </div>
+    </div>
+    <div class="section">
+      <h3>Nos savoir-faire</h3>
+      <ul>
+        <li>Installation électrique, parquet, carrelage, salle de bain, cuisine, rénovation complète, plans, choix de
+          matériaux.</li>
+        <li>Ouvriers qualifiés pour tout type de travaux.</li>
+        <li>Service après-vente réactif, clients satisfaits !</li>
+      </ul>
+      <div class="photos">
+        <img src="media/photo/Villefranche pendant 2.jpeg" alt="Chantier pendant" />
+        <img src="media/photo/Villefranche avant 1 .jpeg" alt="Chantier avant" />
+        <img src="media/photo/Photo salle de bain Villefranche finit après 1.jpeg" alt="Chantier après" />
+      </div>
+    </div>
+    <div class="section">
+      <h3>Avant / Après</h3>
+      <p>Exemple de rénovation complète d'une salle de bain à Villefranche-sur-Saône.</p>
+      <div class="photos">
+        <img src="media/photo/Villefranche avant 1 .jpeg" alt="Avant" />
+        <img src="media/photo/Photo salle de bain Villefranche finit après 1.jpeg" alt="Après" />
+      </div>
+    </div>
+    <div class="section">
+      <h3>Contact</h3>
+      <p>FTMS CONCEPT<br>4 rue des Asters — 01600 Reyrieux<br>Tél : +(33) 4 26 17 58
+        65<br>contact@ftms-concept.com<br>www.ftms-concept.com</p>
+      <div class="photos">
+        <img src="media/photo/logo ftms concept.png" alt="Logo FTMS"
+          style="width:120px;height:120px;object-fit:contain;background:#fff;" />
+      </div>
+      <div style="margin-top:18px;color:#b5c6d6;">Mon credo : Ma Seule Ambition est la Satisfaction du Client</div>
+    </div>
+    <div style="text-align:center;">
+      <button class="btn-download" id="downloadBtn">Télécharger le portfolio</button>
+    </div>
+    <div class="footer">&copy; 2026 FTMS CONCEPT — Portfolio digital</div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    async function waitForImages() {
+      const images = Array.from(document.images);
+      await Promise.all(images.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = resolve;
+          img.onerror = resolve;
+        });
+      }));
+    }
+    async function downloadPortfolio() {
+      const btn = document.getElementById('downloadBtn');
+      btn.disabled = true;
+      btn.textContent = 'Génération du PDF…';
+      await waitForImages();
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const container = document.querySelector('.container');
+      const canvas = await html2canvas(container, { scale: 2, useCORS: true, backgroundColor: '#0e1f3d' });
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+      pdf.save('FTMS-Concept_portofolio.pdf');
+      btn.disabled = false;
+      btn.textContent = 'Télécharger le portfolio';
+    }
+    document.getElementById('downloadBtn').addEventListener('click', downloadPortfolio);
+  </script>
+</body>
+
+</html>
